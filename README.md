@@ -13,7 +13,7 @@ Don't know what to eat? This website will give you a random recipe for you.
 
 -   [TheMealDB](https://www.themealdb.com/)
 
-## Veja o projeto a funcionar [aqui.]()
+## Veja o projeto a funcionar [aqui.](https://what2eat-eta.vercel.app/)
 
 <img src="./public/images/exampleImg.png" width="700px" alt="Imagem exemplo do projeto" />
 

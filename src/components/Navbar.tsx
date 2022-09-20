@@ -1,9 +1,9 @@
 import { Transition } from '@headlessui/react'
 import clsx from 'clsx'
+import { useEscape } from 'hooks'
 import { ForkKnife, List, X } from 'phosphor-react'
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { useEscape } from '../hooks'
 
 const navbarLinks = [
     { text: 'Home', href: '/' },

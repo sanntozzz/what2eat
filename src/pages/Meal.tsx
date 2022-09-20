@@ -1,8 +1,8 @@
 import { Tab } from '@headlessui/react'
 import clsx from 'clsx'
+import { useWindowSize } from 'hooks'
 import { ArrowsClockwise, Spinner } from 'phosphor-react'
 import { useEffect, useState } from 'react'
-import { useWindowSize } from '../hooks'
 
 interface Meal {
     [x: string]: any
@@ -58,24 +58,27 @@ interface Meal {
 export function Meal() {
     const [food, setFood] = useState<Meal[]>([])
     const [isLoading, setIsLoading] = useState(true)
+    const [isError, setIsError] = useState(false)
 
-    function getApi() {
+    async function getAPI() {
         setIsLoading(true)
-        fetch('https://www.themealdb.com/api/json/v1/1/random.php')
-            .then((res) => res.json())
-            .then((data: { meals: any }) => {
-                setFood(data.meals)
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-            .finally(() => {
-                setIsLoading(false)
-            })
+        setIsError(false)
+
+        try {
+            const [fetchAPI] = await Promise.all([
+                fetch('https://www.themealdb.com/api/json/v1/1/random.php'),
+                new Promise((resolve) => setTimeout(resolve, 500)),
+            ])
+            const fetchResponse = await fetchAPI.json()
+            setFood(fetchResponse.meals)
+            setIsLoading(false)
+        } catch (error) {
+            setIsError(true)
+        }
     }
 
     useEffect(() => {
-        getApi()
+        getAPI()
     }, [])
 
     const size = useWindowSize()
@@ -130,12 +133,12 @@ export function Meal() {
 
     if (!isLoading) {
         return (
-            <div className="container mx-auto px-4 py-12">
+            <div className="container mx-auto px-4 py-6">
                 {food.map((food) => {
                     return (
                         <div key={food.idMeal} className="space-y-12">
                             <button
-                                onClick={getApi}
+                                onClick={getAPI}
                                 className="mx-auto flex items-center space-x-2 rounded-full bg-orange-300 px-6 py-2 text-center text-sm duration-150 hover:bg-orange-400"
                             >
                                 <span>
@@ -261,8 +264,24 @@ export function Meal() {
         )
     }
 
+    if (isError) {
+        return (
+            <div className="container mx-auto flex flex-1 items-center justify-center px-4 py-6">
+                <div className="text-center">
+                    <div className="text-4xl font-bold">
+                        Something went wrong
+                    </div>
+                    <div>
+                        There was an error communicating with the server. Please
+                        try again later.
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
     return (
-        <div className="container mx-auto flex min-h-screen flex-1 items-center justify-center px-4 py-6 ">
+        <div className="container mx-auto flex flex-1 items-center justify-center px-4 py-6">
             <Spinner
                 className="animate-spin text-4xl text-orange-400"
                 weight="bold"

@@ -1,6 +1,6 @@
 import { Tab } from '@headlessui/react'
+import { useWindowSize } from '@hooks/useWindowSize'
 import clsx from 'clsx'
-import { useWindowSize } from 'hooks'
 import { ArrowsClockwise, Spinner } from 'phosphor-react'
 import { useEffect, useState } from 'react'
 

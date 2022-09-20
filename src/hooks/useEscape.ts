@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-export const useEscape = (onEscape: any) => {
+export function useEscape(onEscape: any) {
     useEffect(() => {
         const handleEscape = (event: KeyboardEvent) => {
             if (event.key === 'Escape') {

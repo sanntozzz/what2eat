@@ -1,5 +1,8 @@
-import { Footer, Navbar } from 'components'
-import { Custom404, Home, Meal } from 'pages'
+import { Footer } from '@components/Footer'
+import { Navbar } from '@components/Navbar'
+import { Custom404 } from '@pages/404'
+import { Home } from '@pages/Home'
+import { Meal } from '@pages/Meal'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 function App() {

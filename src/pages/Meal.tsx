@@ -133,7 +133,7 @@ export function Meal() {
 
     if (!isLoading) {
         return (
-            <div className="container mx-auto px-4 py-6">
+            <div className="container mx-auto flex-1 px-4 py-6">
                 {food.map((food) => {
                     return (
                         <div key={food.idMeal} className="space-y-12">
